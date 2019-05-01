@@ -6,6 +6,13 @@ from flask import Flask, request, render_template
 app = Flask(__name__)
 
 app.debug = True
+class Material:
+    def __init__(self):
+        pass
+
+    def itemlist(self, what,who,when,notes):
+        item = {"what":what,"who":who,"when":when,"notes":notes }
+        return render_template('itemlist.html', item=item)
 
 @app.route('/')
 def index():
@@ -59,7 +66,7 @@ def index():
         'notes': "We should eat this: Grapefruit, Squash, Corn, and Tomatillo tacos"
       },
     ];
-    return render_template('index.html', menu=menu,activity=activity)
+    return render_template('index.html', menu=menu,activity=activity, util= Material())
 
 if __name__ == '__main__':
     app.run()
