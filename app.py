@@ -8,11 +8,18 @@ app = Flask(__name__)
 app.debug = True
 class Material:
     def __init__(self):
-        pass
+        title = "Exemple"
+        menu_title ="Menu"
+    
+    def title(self):
+      return self.title
 
     def itemlist(self, what,who,when,notes):
         item = {"what":what,"who":who,"when":when,"notes":notes }
         return render_template('itemlist.html', item=item)
+
+    def carduser(self):
+        return render_template('carduserleftop.html', item={"firstlastname":"yoyo","email":"ypyp@rprp.fr"})
 
 @app.route('/')
 def index():
@@ -66,7 +73,10 @@ def index():
         'notes': "We should eat this: Grapefruit, Squash, Corn, and Tomatillo tacos"
       },
     ];
-    return render_template('index.html', menu=menu,activity=activity, util= Material())
+    return render_template('index.html',
+                                 title="Demo",
+                                 menu_title ="Admin",
+                                 menu=menu,activity=activity, mat= Material())
 
 if __name__ == '__main__':
     app.run()
