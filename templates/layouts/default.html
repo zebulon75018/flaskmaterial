@@ -1,5 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+    {% macro sidebarmenu(name,url,icon) -%}
+    <li class="nav-item">
+      <a class="nav-link" href="{{url}}">
+        <i class="material-icons">{{icon}}</i>
+        <p>{{name}}</p>
+      </a>
+    </li>
+    {%- endmacro %}
+    
     {% macro cardheader(category,title,icon,style) -%}
     <div class="card-header card-header-{{style}}">
         {% if icon|length %}
@@ -9,8 +18,7 @@
         {% endif %}  
         <h3 class="card-title">{{title|safe}}</h3>
         <p class="card-category">{{category|safe}}
-        </p>
-    
+        </p>  
     </div>
     {%- endmacro %}
 

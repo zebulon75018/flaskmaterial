@@ -35,13 +35,14 @@ from . assets    import *
 from . forms     import LoginForm, RegisterForm
 """
 import os, shutil, re, cgi
-        
+
 # provide login manager with load_user callback
 """
 @lm.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
 """
+
 # authenticate user
 @app.route('/logout.html')
 def logout():
@@ -143,8 +144,7 @@ def icons():
     page_description = 'Open-Source Flask Material Dashboard, the icons page.'
 
     # try to match the pages defined in -> pages/
-    return render_template('layouts/default.html',
-                            content=render_template( 'pages/icons.html') )
+    return render_template('pages/icons.html',sidebarmenus=sidebarmenus )
 
 # Used only for static export
 @app.route('/notifications.html')
@@ -155,7 +155,7 @@ def notifications():
     page_description = 'Open-Source Flask Material Dashboard, the notifications page.'
 
     # try to match the pages defined in -> pages/
-    return render_template('pages/notifications.html' )
+    return render_template('pages/notifications.html' ,sidebarmenus=sidebarmenus)
 
 # Used only for static export
 @app.route('/user.html')
@@ -166,8 +166,7 @@ def user():
     page_description = 'Open-Source Flask Material Dashboard, the profile page.'
 
     # try to match the pages defined in -> pages/
-    return render_template('layouts/default.html',
-                            content=render_template( 'pages/user.html') )
+    return render_template('pages/user.html',sidebarmenus=sidebarmenus )
 
 # Used only for static export
 @app.route('/tables.html')
@@ -178,7 +177,7 @@ def table():
     page_description = 'Open-Source Flask Material Dashboard, the tables page.'
 
     # try to match the pages defined in -> pages/
-    return render_template('pages/tables.html' )
+    return render_template('pages/tables.html',sidebarmenus=sidebarmenus )
 
 # Used only for static export
 @app.route('/typography.html')
@@ -189,7 +188,7 @@ def typography():
     page_description = 'Open-Source Flask Material Dashboard, the tables page.'
 
     # try to match the pages defined in -> pages/
-    return render_template( 'pages/typography.html' )
+    return render_template( 'pages/typography.html',sidebarmenus=sidebarmenus )
 
 # App main route + generic routing
 @app.route('/', defaults={'path': 'index.html'})
@@ -205,7 +204,7 @@ def index(path):
     try:
 
         # try to match the pages defined in -> themes/light-bootstrap/pages/
-        return render_template('pages/'+path,cardinfo=cardinfo) 
+        return render_template('pages/'+path,cardinfo=cardinfo,sidebarmenus=sidebarmenus) 
         #('layouts/default.html',
         #                        content=render_template( 'pages/'+path) )
     except Exception as e :
@@ -270,8 +269,17 @@ def e410(e):
     return http_err( 410) # "The content you were looking for has been deleted."
 
 
+sidebarmenus = [ {'name':"dashboard",'url':"/",'icon':"dashboard" },
+                {'name': "User Profile",'url':"/user.html",'icon':"person"},
+                {'name':"Table List", 'url':"/tables.html",'icon':"content_paste"},
+                {'name':"Typography",'url':"/typography.html",'icon':"library_books"},          
+                {'name':"Icons",'url':"/icons.html",'icon':"bubble_chart"},
+                {'name':"Notifications",'url':"/notifications.html",'icon':"notifications"},
+               # {'name':"Logout",'url':url_for('logout'),'icon':"account_box"},
+               #  {'name':"Login",'url':url_for('login'),'icon':"account_box" },
+              ]
+              
+
 if __name__ == "__main__":
-
-
 	port = int(os.environ.get("PORT", 5000))
 	app.run(host='0.0.0.0', port=port, debug=True)
