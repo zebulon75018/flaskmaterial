@@ -155,8 +155,7 @@ def notifications():
     page_description = 'Open-Source Flask Material Dashboard, the notifications page.'
 
     # try to match the pages defined in -> pages/
-    return render_template('layouts/default.html',
-                            content=render_template( 'pages/notifications.html') )
+    return render_template('pages/notifications.html' )
 
 # Used only for static export
 @app.route('/user.html')
@@ -179,8 +178,7 @@ def table():
     page_description = 'Open-Source Flask Material Dashboard, the tables page.'
 
     # try to match the pages defined in -> pages/
-    return render_template('layouts/default.html',
-                            content=render_template( 'pages/tables.html') )
+    return render_template('pages/tables.html' )
 
 # Used only for static export
 @app.route('/typography.html')
@@ -191,8 +189,7 @@ def typography():
     page_description = 'Open-Source Flask Material Dashboard, the tables page.'
 
     # try to match the pages defined in -> pages/
-    return render_template('layouts/default.html',
-                            content=render_template( 'pages/typography.html') )
+    return render_template( 'pages/typography.html' )
 
 # App main route + generic routing
 @app.route('/', defaults={'path': 'index.html'})
@@ -201,12 +198,18 @@ def index(path):
 
     content = None
 
+    cardinfo = [
+            {'name' : "Used Space", 'title':"49/50 <small>GB</small>",'texturl':"toto",'url':"#toto",'icon':"info_outline","style":"info"},
+            {'name':"Revenue",'title':"$34,245",'texturl':"date_range</i> Last 24 Hours",'url':"#toto",'icon':"store","style":"warning"}
+    ]
     try:
 
         # try to match the pages defined in -> themes/light-bootstrap/pages/
-        return render_template('layouts/default.html',
-                                content=render_template( 'pages/'+path) )
-    except:
+        return render_template('pages/'+path,cardinfo=cardinfo) 
+        #('layouts/default.html',
+        #                        content=render_template( 'pages/'+path) )
+    except Exception as e :
+        print(e)
         abort(404)
 
 #@app.route('/favicon.ico')

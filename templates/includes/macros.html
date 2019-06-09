@@ -1,0 +1,17 @@
+{% macro cardwithlink(name,title,texturl,url,icon,style) -%}
+<div class="card card-stats">
+    <div class="card-header card-header-{{style}} card-header-icon">
+      <div class="card-icon">
+        <i class="material-icons">{{icon}}</i>
+      </div>
+      <p class="card-category">{{name|safe}}</p>
+      <h3 class="card-title">{{title|safe}}</h3>
+    </div>
+    <div class="card-footer">
+      <div class="stats">
+        <i class="material-icons text-danger">{{style}}</i>
+        <a href="{{url}}">{{texturl| safe}}</a>
+      </div>
+    </div>
+  </div>
+{%- endmacro %}

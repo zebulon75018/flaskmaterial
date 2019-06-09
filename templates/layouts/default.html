@@ -1,6 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
+    {% macro cardheader(category,title,icon,style) -%}
+    <div class="card-header card-header-{{style}}">
+        {% if icon|length %}
+        <div class="card-icon">
+            <i class="material-icons">{{icon}}</i>
+        </div>    
+        {% endif %}  
+        <h3 class="card-title">{{title|safe}}</h3>
+        <p class="card-category">{{category|safe}}
+        </p>
+    
+    </div>
+    {%- endmacro %}
 
+    {% macro cardwithlink(title,name,texturl,url,icon,style) -%}
+    <div class="card card-stats">
+        <div class="card-header card-header-success card-header-icon">
+           <div class="card-icon">
+              <i class="material-icons">{{icon}}</i>
+            </div>
+            
+            <p class="card-category">{{title|safe}}</p>
+            <h3 class="card-title">{{name|safe}}</h3>
+          </div>
+      </div>
+    {%- endmacro %}
+
+    {% macro tablemacro(title, subtitle, data, keys) -%}
+    <div class="card">
+        {{cardheader(title,subtitle,'','primary')}}
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table">
+              <thead class=" text-primary">
+                {% for key in keys %}
+                <th>
+                  {{key}}
+                </th>
+                {% endfor %}
+              </thead>
+              <tbody>                
+                  {% for elm in data %}
+                  <tr>
+                  {% for e in elm %}
+                  <td>
+                    {{e}}
+                  </td>
+                  {% endfor %}
+                </tr>
+              {% endfor %}      
+              </table>
+            </div>
+          </div>
+      </div>  
+      {%- endmacro %}
 <head>
   <meta charset="utf-8" />
   <link rel="apple-touch-icon" sizes="76x76" href="/static/assets/img/apple-icon.png">
@@ -31,7 +85,7 @@
 
       {% include 'includes/navigation.html' %}
       
-      {{ content | safe }}
+      {% block content %}{% endblock %}
 
       {% include 'includes/footer.html' %}
       
